@@ -1,5 +1,5 @@
 const premios = [
-  "Tarjeta de regalo $100",
+  "Tarjeta Amazon $100",
   "Audífonos Bluetooth",
   "Botella térmica",
   "Power Bank",
@@ -7,7 +7,12 @@ const premios = [
   "Mochila",
   "Gorra",
   "Llavero exclusivo",
-  "¡Sorpresa especial!"
+  "Gracias por participar"
+];
+
+const colores = [
+  "#e74c3c", "#f39c12", "#2ecc71", "#9b59b6", "#3498db",
+  "#1abc9c", "#e67e22", "#fd79a8", "#95a5a6"
 ];
 
 const canvas = document.getElementById("ruleta");
@@ -26,7 +31,7 @@ function drawWheel() {
     const end = start + anglePerSlice;
 
     ctx.beginPath();
-    ctx.fillStyle = i % 2 === 0 ? "#ff5722" : "#4caf50";
+    ctx.fillStyle = colores[i % colores.length];
     ctx.moveTo(250, 250);
     ctx.arc(250, 250, 250, start, end);
     ctx.fill();
@@ -74,6 +79,9 @@ async function registrarPremio(token, premio) {
 btnGirar.addEventListener("click", async () => {
   if (spinning) return;
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
   const yaUsado = await verificarToken(token);
   if (yaUsado) {
     alert("Este token ya fue usado.");
@@ -104,16 +112,7 @@ btnGirar.addEventListener("click", async () => {
       resultado.innerHTML = `
         🎉 ¡Muchas felicidades! Has ganado:<br><strong>${premio}</strong><br>
         ¡Gracias por participar en nuestra Security Ruleta!<br><br>
-        <a href="https://www.securityeasymexico.com" target="_blank" style="
-          display: inline-block;
-          padding: 10px 20px;
-          background: #2196f3;
-          color: white;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: bold;
-          margin-top: 10px;
-        ">Ir al sitio</a>
+        <a href="https://www.securityeasymexico.com" target="_blank">Ir al sitio</a>
       `;
       registrarPremio(token, premio);
       spinning = false;
@@ -121,5 +120,4 @@ btnGirar.addEventListener("click", async () => {
   }, 50);
 });
 
-// Dibujo inicial
 drawWheel();
