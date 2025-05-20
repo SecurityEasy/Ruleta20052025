@@ -41,7 +41,7 @@ function drawWheel() {
     ctx.restore();
   }
 
-  // centro
+  // círculo central
   ctx.beginPath();
   ctx.arc(250, 250, 40, 0, 2 * Math.PI);
   ctx.fillStyle = "#fff";
@@ -101,12 +101,25 @@ btnGirar.addEventListener("click", async () => {
     if (tiempo >= duracion) {
       clearInterval(intervalo);
       const premio = elegirPremio(angle);
-      resultado.innerHTML = `🎉 ¡Muchas felicidades! Has ganado:<br><strong>${premio}</strong><br>¡Gracias por participar en nuestra Security Ruleta!`;
+      resultado.innerHTML = `
+        🎉 ¡Muchas felicidades! Has ganado:<br><strong>${premio}</strong><br>
+        ¡Gracias por participar en nuestra Security Ruleta!<br><br>
+        <a href="https://www.securityeasymexico.com" target="_blank" style="
+          display: inline-block;
+          padding: 10px 20px;
+          background: #2196f3;
+          color: white;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: bold;
+          margin-top: 10px;
+        ">Ir al sitio</a>
+      `;
       registrarPremio(token, premio);
       spinning = false;
     }
   }, 50);
 });
 
-// Primer dibujo
+// Dibujo inicial
 drawWheel();
