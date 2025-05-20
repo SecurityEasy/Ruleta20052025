@@ -67,13 +67,13 @@ function elegirPremio(finalAngle) {
 }
 
 async function verificarToken(token) {
-  const response = await fetch(`https://script.google.com/macros/s/TU_SCRIPT_ID/exec?token=${token}`);
+  const response = await fetch(`https://script.google.com/macros/s/AKfycbydXzCGQ5snd1iU3gAMVdesxDyAPfYSogF9vYfsBWK2mTv52NcHcuBN0ZCQwz3_2jQz/exec`);
   const data = await response.json();
   return data.usado;
 }
 
 async function registrarPremio(token, premio) {
-  await fetch(`https://script.google.com/macros/s/TU_SCRIPT_ID/exec?token=${token}&premio=${encodeURIComponent(premio)}`);
+  await fetch(`https://script.google.com/macros/s/AKfycbydXzCGQ5snd1iU3gAMVdesxDyAPfYSogF9vYfsBWK2mTv52NcHcuBN0ZCQwz3_2jQz/exec?token=${token}`);
 }
 
 btnGirar.addEventListener("click", async () => {
