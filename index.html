@@ -1,35 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Security Ruleta de Premios</title>
-    <!-- Vincular el archivo de estilos -->
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Incluir la librería Winwheel.js desde CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/winwheel@1.0.1/dist/Winwheel.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Ruleta de Premios</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+    #girar {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background: #ff9800;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <!-- Contenedor principal de la ruleta -->
-    <div id="wheelContainer">
-        <!-- Puntero arriba (CSS triángulo) -->
-        <div class="pointer"></div>
-        <!-- Canvas donde Winwheel dibuja la ruleta -->
-        <canvas id="wheelCanvas" width="500" height="500">
-            Tu navegador no soporta canvas.
-        </canvas>
-        <!-- Logo centrado encima de la ruleta -->
-        <img id="logo" src="https://securityeasy.com.mx/wp-content/uploads/2022/09/se_logo.png" alt="Security Easy Logo">
-    </div>
+  <canvas id="ruleta" width="500" height="500"></canvas>
+  <button id="girar">Girar</button>
+  <div id="resultado"></div>
 
-    <!-- Botón para girar la ruleta -->
-    <button id="spinButton">¡Girar!</button>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (!token) {
+      alert("Falta el token. No puedes girar.");
+      document.getElementById("girar").disabled = true;
+    }
+  </script>
 
-    <!-- Área para mostrar mensajes de resultado o error -->
-    <div id="message"></div>
-    <div id="errorMessage" class="error"></div>
-
-    <!-- Vincular el script principal -->
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
