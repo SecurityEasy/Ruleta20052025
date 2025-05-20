@@ -2,58 +2,77 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Ruleta de Premios</title>
+  <title>Security Ruleta</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
-    canvas {
-      border-radius: 50%;
-      box-shadow: 0 0 20px rgba(255,255,255,0.3);
-    }
-    #girar {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1.2rem;
-      background: #ff9800;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    #girar:hover {
-      background: #e68900;
-    }
-    #resultado {
-      margin-top: 20px;
-      font-size: 1.4rem;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="ruleta" width="500" height="500"></canvas>
-  <button id="girar">Girar</button>
-  <div id="resultado"></div>
-
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
     if (!token) {
       alert("Falta el token. No puedes girar.");
-      document.getElementById("girar").disabled = true;
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("girar").disabled = true;
+      });
     }
   </script>
+  <style>
+    body {
+      background: radial-gradient(circle at center, #2c3e50, #000000);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+
+    canvas {
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
+
+    #girar {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff9800, #ffc107);
+      border: none;
+      border-radius: 15px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #girar:hover {
+      transform: scale(1.05);
+    }
+
+    #resultado {
+      margin-top: 25px;
+      font-size: 1.3rem;
+      line-height: 1.6;
+    }
+
+    #resultado a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #2196f3;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    #resultado a:hover {
+      background: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎡 ¡Gira la Security Ruleta! 🎉</h1>
+  <canvas id="ruleta" width="500" height="500"></canvas>
+  <br>
+  <button id="girar">Girar</button>
+  <div id="resultado"></div>
 
   <script src="script.js"></script>
 </body>
