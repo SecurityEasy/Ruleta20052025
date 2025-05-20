@@ -1,0 +1,76 @@
+/* Estilos básicos y layout */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Contenedor de la ruleta: posicionado relativo para el puntero */
+#wheelContainer {
+    position: relative;
+    display: inline-block;
+    width: 90vw;
+    max-width: 500px;
+}
+
+/* Canvas de la ruleta: responsivo, ocupa 100% del contenedor */
+#wheelCanvas {
+    width: 100%;
+    height: auto;
+    border: 2px solid #333;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* Puntero estilo triángulo CSS */
+.pointer {
+    width: 0; 
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 30px solid #e74c3c; /* Color rojo vivo */
+    position: absolute;
+    top: -30px; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Logo centrado en el medio de la ruleta */
+#logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px; /* Ajustar tamaño según preferencia */
+    pointer-events: none; /* Ignorar clics sobre el logo */
+}
+
+/* Botón de girar */
+#spinButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background: #27ae60; /* verde brillante */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#spinButton:disabled {
+    background: #95a5a6; /* gris si está deshabilitado */
+    cursor: not-allowed;
+}
+
+/* Mensajes */
+#errorMessage, #message {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Error en color rojo */
+.error {
+    color: #c0392b;
+}
