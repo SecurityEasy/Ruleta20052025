@@ -101,19 +101,24 @@
     let alreadySpun = false;
 
     function drawWheel() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < numSegments; i++) {
+        const startAngle = currentAngle + i * angleStep;
+        const endAngle = startAngle + angleStep;
+
         ctx.beginPath();
         ctx.moveTo(250, 250);
         ctx.fillStyle = i % 2 === 0 ? "#e60000" : "#fff";
-        ctx.arc(250, 250, 250, currentAngle + i * angleStep, currentAngle + (i + 1) * angleStep);
+        ctx.arc(250, 250, 250, startAngle, endAngle);
         ctx.fill();
 
         ctx.save();
         ctx.translate(250, 250);
-        ctx.rotate(currentAngle + (i + 0.5) * angleStep);
+        ctx.rotate(startAngle + angleStep / 2);
+        ctx.textAlign = "right";
         ctx.fillStyle = i % 2 === 0 ? "#fff" : "#000";
         ctx.font = "bold 16px Arial";
-        ctx.fillText(prizes[i], 100, 0);
+        ctx.fillText(prizes[i], 230, 0);
         ctx.restore();
       }
     }
@@ -136,7 +141,6 @@
         const progress = Math.min((time - start) / duration, 1);
         const easeOut = 1 - Math.pow(1 - progress, 3);
         currentAngle = targetAngle * easeOut;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawWheel();
 
         if (progress < 1) {
