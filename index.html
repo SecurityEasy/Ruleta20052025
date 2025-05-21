@@ -133,7 +133,7 @@
       alreadySpun = true;
 
       const prizeIndex = Math.floor(Math.random() * numSegments);
-      const prizeAngle = prizeIndex * angleStep;
+      const prizeAngle = prizeIndex * angleStep - Math.PI / 2;
       const extraRotations = 5 * 2 * Math.PI; // 5 vueltas
       const targetAngle = extraRotations - prizeAngle - angleStep / 2;
       const duration = 5000;
@@ -161,4 +161,3 @@
   </script>
 </body>
 </html>
-
