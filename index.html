@@ -32,17 +32,19 @@
     .wheel-container {
       position: relative;
       margin-top: 40px;
+      width: 500px;
+      height: 500px;
     }
     .arrow {
       width: 0;
       height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-bottom: 30px solid #e60000;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-left: 30px solid #e60000;
       position: absolute;
-      top: -35px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 50%;
+      right: -30px;
+      transform: translateY(-50%);
       z-index: 10;
     }
     .wheel {
@@ -131,9 +133,9 @@
       alreadySpun = true;
 
       const prizeIndex = Math.floor(Math.random() * numSegments);
-      const prizeAngle = (numSegments - prizeIndex) * angleStep - angleStep / 2;
+      const prizeAngle = prizeIndex * angleStep;
       const extraRotations = 5 * 2 * Math.PI; // 5 vueltas
-      const targetAngle = extraRotations + prizeAngle;
+      const targetAngle = extraRotations - prizeAngle - angleStep / 2;
       const duration = 5000;
       const start = performance.now();
 
@@ -159,3 +161,4 @@
   </script>
 </body>
 </html>
+
