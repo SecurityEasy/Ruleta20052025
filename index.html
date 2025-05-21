@@ -101,6 +101,28 @@
     let currentAngle = 0;
     let spinning = false;
     let alreadySpun = false;
+    const spinButton = document.getElementById("spin");
+    const resultDiv = document.getElementById("result");
+
+    // Leer token desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    const scriptURL = "https://script.google.com/macros/s/AKfycbydXzCGQ5snd1iU3gAMVdesxDyAPfYSogF9vYfsBWK2mTv52NcHcuBN0ZCQwz3_2jQz/exec";
+
+    if (!token) {
+      resultDiv.innerText = "Token inválido. No se puede girar la ruleta.";
+      spinButton.disabled = true;
+    } else {
+      // Validar si el token ya fue usado
+      fetch(`${scriptURL}?token=${token}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "used") {
+            resultDiv.innerText = "Este token ya fue utilizado.";
+            spinButton.disabled = true;
+          }
+        });
+    }
 
     function drawWheel() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -127,7 +149,7 @@
 
     drawWheel();
 
-    document.getElementById("spin").addEventListener("click", () => {
+    spinButton.addEventListener("click", () => {
       if (spinning || alreadySpun) return;
       spinning = true;
       alreadySpun = true;
@@ -149,10 +171,17 @@
           requestAnimationFrame(animate);
         } else {
           const resultText = prizes[prizeIndex];
-          document.getElementById("result").innerText =
+          resultDiv.innerText =
             `¡Muchas felicidades, gracias por participar en el Hot Sale de Security Easy!\nPremio: ${resultText}`;
 
-          // Aquí podrías agregar llamada a API con token para guardar el resultado
+          // Guardar resultado en Google Sheets con Apps Script
+          fetch(scriptURL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ token: token, premio: resultText })
+          });
         }
       }
 
