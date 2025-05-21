@@ -125,24 +125,24 @@
       spinning = true;
       alreadySpun = true;
 
-      const spinAngle = Math.random() * 360 + 1440; // 4+ vueltas
+      const prizeIndex = Math.floor(Math.random() * numSegments);
+      const prizeAngle = (numSegments - prizeIndex) * angleStep - angleStep / 2;
+      const extraRotations = 5 * 2 * Math.PI; // 5 vueltas
+      const targetAngle = extraRotations + prizeAngle;
       const duration = 5000;
       const start = performance.now();
 
       function animate(time) {
         const progress = Math.min((time - start) / duration, 1);
         const easeOut = 1 - Math.pow(1 - progress, 3);
-        currentAngle = (spinAngle * easeOut * Math.PI) / 180;
+        currentAngle = targetAngle * easeOut;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawWheel();
 
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          const degrees = (spinAngle % 360);
-          const index = Math.floor(numSegments - (degrees / 360) * numSegments) % numSegments;
-          const resultText = prizes[index];
-
+          const resultText = prizes[prizeIndex];
           document.getElementById("result").innerText =
             `¡Muchas felicidades, gracias por participar en el Hot Sale de Security Easy!\nPremio: ${resultText}`;
 
