@@ -28,6 +28,21 @@
       max-width: 500px;
       margin: 20px auto;
     }
+    .wheel-container {
+      position: relative;
+    }
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid #e60000;
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
     .wheel {
       margin: 20px 0;
     }
@@ -48,14 +63,18 @@
   </style>
 </head>
 <body>
-<img src="Security_Easy_Logo2.png" alt="Security Easy Logo" class="logo" width="180" />
+  <img src="Security_Easy_Logo2.png" alt="Security Easy Logo" class="logo" width="180" />
 
   <div class="instructions">
     <p><strong>¡Gira la ruleta y gana grandes premios!</strong><br />
     Recuerda que la ruleta se puede girar una sola vez, tu premio nos llegará en automático, ¡mucha suerte!</p>
   </div>
 
-  <canvas id="wheelCanvas" width="500" height="500" class="wheel"></canvas>
+  <div class="wheel-container">
+    <div class="arrow"></div>
+    <canvas id="wheelCanvas" width="500" height="500" class="wheel"></canvas>
+  </div>
+
   <button id="spin">Girar ruleta</button>
   <div id="result"></div>
 
